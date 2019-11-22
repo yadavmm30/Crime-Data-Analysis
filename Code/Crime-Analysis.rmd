@@ -60,8 +60,8 @@ loadPkg("data.table")
 loadPkg("corrplot")
 ```
 
-```{r RapeData, include=TRUE}
-rape_data = read.csv("../Data/total_crime_2010_Age_Time.csv")
+```{r TypeOfCrimeAgainstWomen, include=TRUE}
+rape_data = read.csv("../Data/42_Cases_under_crime_against_women.csv")
 str(rape_data)
 head(rape_data)
 nrow(rape_data)

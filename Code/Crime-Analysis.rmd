@@ -61,13 +61,19 @@ loadPkg("corrplot")
 ```
 
 ```{r TypeOfCrimeAgainstWomen, include=TRUE}
-rape_data = read.csv("../Data/42_Cases_under_crime_against_women.csv")
-str(rape_data)
-head(rape_data)
-nrow(rape_data)
+CrimeAgainstWomen = read.csv("../Data/42_Cases_under_crime_against_women.csv")
+cnames<- c("Area_Name","Year","Group_Name", "Cases_Reported")
 
-rape_data<- subset(rape_data, Subgroup == 'Total Rape Victims')
+#names(CrimeAgainstWomen)[names(CrimeAgainstWomen) == "ï..Area_Name"] <- "Area_Name"
 
-head(rape_data)
-nrow(rape_data)
+colnames(CrimeAgainstWomen)
+ReqColCAW <- CrimeAgainstWomen[cnames]
+  
+str(ReqColCAW)
+head(CrimeAgainstWomen)
+nrow(CrimeAgainstWomen)
+
+
+head(CrimeAgainstWomen)
+nrow(CrimeAgainstWomen)
 ```

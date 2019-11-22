@@ -61,7 +61,7 @@ loadPkg("corrplot")
 ```
 
 ```{r RapeData, include=TRUE}
-rape_data = read.csv(file="20_Victims_of_rape.csv")
+rape_data = read.csv("../Data/total_crime_2010_Age_Time.csv")
 str(rape_data)
 head(rape_data)
 nrow(rape_data)

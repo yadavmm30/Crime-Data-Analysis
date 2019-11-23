@@ -62,18 +62,68 @@ loadPkg("corrplot")
 
 ```{r TypeOfCrimeAgainstWomen, include=TRUE}
 CrimeAgainstWomen = read.csv("../Data/42_Cases_under_crime_against_women.csv")
+# str(CrimeAgainstWomen)
+# head(CrimeAgainstWomen)
+# nrow(CrimeAgainstWomen)
+
+names(CrimeAgainstWomen)[names(CrimeAgainstWomen) == "ï..Area_Name"] <- "Area_Name"
 cnames<- c("Area_Name","Year","Group_Name", "Cases_Reported")
-
-#names(CrimeAgainstWomen)[names(CrimeAgainstWomen) == "ï..Area_Name"] <- "Area_Name"
-
-colnames(CrimeAgainstWomen)
 ReqColCAW <- CrimeAgainstWomen[cnames]
   
 str(ReqColCAW)
-head(CrimeAgainstWomen)
-nrow(CrimeAgainstWomen)
+head(ReqColCAW)
+nrow(ReqColCAW)
 
+#ReqColCAW %>% group_by(Year,Group_Name) %>% summarise_each(summarize(total = sum(Cases_Reported))
 
-head(CrimeAgainstWomen)
-nrow(CrimeAgainstWomen)
+#summarize (group_by(), total_crimes= sum(Cases_Reported))
+
+library(dplyr)
+
+GroupedReqColCAW  <-ReqColCAW %>%  group_by(Year,Group_Name) %>%  summarise(TotalCrimesReported=sum(Cases_Reported))
+
+str(GroupedReqColCAW)
+head(GroupedReqColCAW)
+
+anova_type <- aov(TotalCrimesReported ~ Group_Name, data = GroupedReqColCAW)
+
+anova_type
+summary(anova_type)
 ```
+```{r litreracy, include=TRUE}
+
+library(data.table)
+
+LitPop = read.csv("../Data/For_Literacy_Population.csv")
+LitPop <- na.omit(LitPop)
+names(LitPop)[1:6]<- c('Area_Name','Workers','Population','Literate','Illiterate','Crimes')
+
+corr<- cor(as.matrix(LitPop[c('Workers','Population','Literate','Illiterate','Crimes')]), method = "pearson")
+
+corrplot.mixed(corr,lower.col="black", number.cex = 0.7)
+
+
+
+
+```
+
+```{r Region, include=TRUE}
+states = read.csv("../Data/01_District_wise_crimes_committed_IPC_2001_2012.csv")
+str(states)
+head(states)
+cnames1<- c("STATE.UT","YEAR","TOTAL.IPC.CRIMES")
+ReqColStates <- states[cnames1]
+names(ReqColStates)[names(ReqColStates) == "STATE.UT"] <- "Area_Name"
+names(ReqColStates)[names(ReqColStates) == "YEAR"] <- "Year"
+names(ReqColStates)[names(ReqColStates) == "TOTAL.IPC.CRIMES"] <- "TotalCrimes"
+
+str(ReqColStates)
+head(ReqColStates)
+
+anova_Region <- aov(TotalCrimes ~ Area_Name, data = ReqColStates)
+
+anova_type
+summary(anova_Region)
+
+```
+
